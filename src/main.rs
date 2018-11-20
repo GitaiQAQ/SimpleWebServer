@@ -1,33 +1,45 @@
 extern crate core;
 
-use std::net::{TcpListener, TcpStream};
 use std::io;
-use std::io::Read;
-use std::io::Write;
-use core::borrow::BorrowMut;
-use std::io::BufReader;
 use std::io::BufRead;
+use std::io::BufReader;
+use std::io::BufWriter;
+use std::net::{TcpListener, TcpStream};
+use std::io::Write;
 
-fn handle_client(mut stream: TcpStream) {
-    let mut reader = BufReader::new(stream);
+static HORIZONTAL_LINE_REQUEST: &str = ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>> REQUEST >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>";
+static HORIZONTAL_LINE_RESPONSE: &str = "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< RESPONSE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<";
 
-    for line in reader.by_ref().lines() {
-        let request_data = line.unwrap();
-        if request_data == "" {
-            break;
-        }
-        println!("{}", request_data);
-    }
+fn handle_client(stream: TcpStream) {
+    println!("{}", HORIZONTAL_LINE_REQUEST);
 
-    send_response(reader.into_inner());
+    let reader = BufReader::new(&stream);
+    handle_request(reader);
+    let mut writer = BufWriter::new(&stream);
+    send_response(writer);
 }
 
-fn send_response(mut stream: TcpStream) {
+fn handle_request(reader: BufReader<&TcpStream>) {
+    for line in reader.lines() {
+        let req_data = line.unwrap();
+        if req_data == "" {
+            break;
+        }
+        println!("{}", req_data);
+    }
+}
+
+fn send_response(mut writer: BufWriter<&TcpStream>) {
+    println!("{}", HORIZONTAL_LINE_RESPONSE);
+
     // Write the header and the html body
-    stream.write_fmt(format_args!("{}\n\r{}\n\r{}",
-                                  "HTTP/1.0 200 OK",
-                                  "Server: A Simple Web Server\r\nContent-Type: text/html\r\n",
-                                  "Hello World!"));
+    let res_data = format_args!("{}\r\n{}\r\n{}",
+                                "HTTP/1.0 200 OK",
+                                "Server: A Simple Web Server\r\nContent-Type: text/html\r\n",
+                                "Hello World!").to_string();
+
+    println!("{}", res_data);
+    writer.write(res_data.as_bytes());
 }
 
 fn listener() -> io::Result<()> {
@@ -36,7 +48,6 @@ fn listener() -> io::Result<()> {
     // accept connections and process them serially
     for stream in listener.incoming() {
         handle_client(stream?);
-        listener.accept();
     }
     Ok(())
 }
