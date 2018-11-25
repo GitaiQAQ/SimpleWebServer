@@ -3,4 +3,6 @@ name = "simplewebserver"
 version = "0.2.0"
 authors = ["wenxiaow <i@gitai.me>"]
 
-[dependencies]
+[[bin]]
+name = "simplewebserver"
+path = "src/main.rs"
