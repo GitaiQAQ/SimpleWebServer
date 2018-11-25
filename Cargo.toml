@@ -6,3 +6,6 @@ authors = ["wenxiaow <i@gitai.me>"]
 [[bin]]
 name = "simplewebserver"
 path = "src/main.rs"
+
+[dependencies]
+log = "0.4.6"
