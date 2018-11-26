@@ -21,14 +21,20 @@
 
 #![feature(bufreader_buffer)]
 extern crate core;
+extern crate env_logger;
 #[macro_use]
 extern crate log;
+
+use std::net::SocketAddr;
 
 use simplewebserver::App;
 
 mod simplewebserver;
 
 fn main() {
-    App::new("127.0.0.1:80")
+    env_logger::init();
+
+    let addr = "127.0.0.1:80".parse::<SocketAddr>().unwrap();
+    App::new(addr)
         .run();
 }

@@ -19,37 +19,15 @@
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+//! HTTP Response
 use core::fmt;
 use std::collections::HashMap;
+use std::str::FromStr;
+
 use super::common::HTTPVersion;
+use super::status::StatusCode;
 
 static HORIZONTAL_LINE_RESPONSE: &str = "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< RESPONSE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<";
-
-#[warn(dead_code)]
-#[derive(Copy, Clone, Debug)]
-pub enum StatusCode {
-    OK = 200,
-    Created = 201,
-    Accepted = 202,
-    NoContent = 204,
-    MovedPermanently = 301,
-    MovedTemporarily = 302,
-    NotModified = 304,
-    BadRequest = 400,
-    Unauthorized = 401,
-    Forbidden = 403,
-    NotFound = 404,
-    InternalServerError = 500,
-    NotImplemented = 501,
-    BadGateway = 502,
-    ServiceUnavailable = 503,
-}
-
-impl fmt::Display for StatusCode {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{} ", *self as u8)
-    }
-}
 
 pub type ReasonPhrase = String;
 
@@ -62,8 +40,8 @@ pub struct StatusLine {
 impl fmt::Display for StatusLine {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{} ", self.version);
-        write!(f, "{} ", self.status_code);
-        write!(f, "{}", self.reason_phrase)
+        write!(f, "{} ", self.status_code.to_u16());
+        write!(f, "{}", self.status_code)
     }
 }
 
@@ -73,6 +51,7 @@ impl fmt::Debug for StatusLine {
     }
 }
 
+/// # Header Field Definitions
 /// Response Header Field
 /// * Location
 /// * Server
@@ -93,6 +72,20 @@ pub struct Response {
     header: Header,
     // Entity-Body
     body: Option<String>,
+}
+
+impl Response {
+    pub fn not_found() -> Self {
+        Response {
+            status_line: StatusLine {
+                version: HTTPVersion::new(1, 0),
+                status_code: StatusCode::NotFound,
+                reason_phrase: String::new(),
+            },
+            header: Header::new(),
+            body: None,
+        }
+    }
 }
 
 impl Default for Response {

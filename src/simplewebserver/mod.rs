@@ -20,37 +20,38 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 use core::borrow::Borrow;
-use std::io;
-use std::io::Write;
-use std::net::{TcpListener, TcpStream};
+use std::io::{Result, Write};
+use std::net::{SocketAddr, TcpListener, TcpStream};
 
-mod common;
-mod request;
-mod response;
+pub mod common;
+pub mod status;
+pub mod request;
+pub mod response;
 
 fn handle_client(stream: &mut TcpStream) {
     let req = request::Request::from(stream.borrow());
     debug!("{:?}", req);
 
     // Write the header and the html body
-    let res = response::Response::default();
+    let res = response::Response::not_found();
     debug!("{:?}", res);
     stream.write_fmt(format_args!("{}", res));
 }
 
-pub struct App<'a> {
-    addr: &'a str,
+pub struct App {
+    addr: SocketAddr,
 }
 
-impl<'a> App<'a> {
-    pub fn new(addr: &'a str) -> Self {
+impl App {
+    pub fn new(addr: SocketAddr) -> Self {
         App {
             addr
         }
     }
 
-    pub fn run(&self) -> io::Result<()> {
+    pub fn run(&self) -> Result<()> {
         let listener = TcpListener::bind(self.addr)?;
+        info!("Listening on {}", self.addr);
         listener.set_ttl(10)?;
 
         // accept connections and process them serially
