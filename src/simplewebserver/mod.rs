@@ -25,6 +25,7 @@ use std::net::{SocketAddr, TcpListener, TcpStream};
 
 pub mod common;
 pub mod status;
+pub mod header;
 pub mod request;
 pub mod response;
 

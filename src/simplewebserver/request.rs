@@ -26,15 +26,24 @@ use std::io::BufReader;
 use std::io::Read;
 use std::net::TcpStream;
 use std::str::FromStr;
+
 use super::common::HTTPVersion;
 
 static HORIZONTAL_LINE_REQUEST: &str = ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>> REQUEST >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>";
 
+/// # Request Methods
+///
 #[derive(Debug)]
-enum Method {
+pub enum Method {
     GET,
     HEAD,
     POST,
+    /// ## Additional Request Methods
+    /// [[RFC1945, Appendix D.1](https://tools.ietf.org/html/rfc1945#appendix-D.1)]
+    PUT,
+    DELETE,
+    LINK,
+    UNLINK,
 }
 
 impl fmt::Display for Method {
@@ -51,6 +60,11 @@ impl FromStr for Method {
             "GET" => Ok(Method::GET),
             "HEAD" => Ok(Method::HEAD),
             "POST" => Ok(Method::POST),
+
+            "PUT" => Ok(Method::PUT),
+            "DELETE" => Ok(Method::DELETE),
+            "LINK" => Ok(Method::LINK),
+            "UNLINK" => Ok(Method::UNLINK),
             _ => Err(())
         };
     }
