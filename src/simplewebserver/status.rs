@@ -122,7 +122,7 @@ impl StatusCode {
 impl FromStr for StatusCode {
     type Err = ();
 
-    fn from_str(s: &str) -> Result<Self, <Self as FromStr>::Err> {
+    fn from_str(_s: &str) -> Result<Self, <Self as FromStr>::Err> {
         unimplemented!()
     }
 }

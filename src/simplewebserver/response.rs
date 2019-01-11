@@ -22,7 +22,6 @@
 //! HTTP Response
 use core::fmt;
 use std::collections::HashMap;
-use std::str::FromStr;
 
 use super::common::HTTPVersion;
 use super::status::StatusCode;

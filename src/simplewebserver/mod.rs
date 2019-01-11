@@ -28,13 +28,15 @@ pub mod status;
 pub mod header;
 pub mod request;
 pub mod response;
+pub mod index;
+
 
 fn handle_client(stream: &mut TcpStream) {
     let req = request::Request::from(stream.borrow());
     debug!("{:?}", req);
 
     // Write the header and the html body
-    let res = response::Response::not_found();
+    let res = response::Response::default();
     debug!("{:?}", res);
     stream.write_fmt(format_args!("{}", res));
 }

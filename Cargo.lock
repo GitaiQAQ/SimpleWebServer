@@ -22,6 +22,16 @@ version = "0.1.6"
 source = "registry+git://mirrors.ustc.edu.cn/crates.io-index"
 
 [[package]]
+name = "chrono"
+version = "0.4.6"
+source = "registry+git://mirrors.ustc.edu.cn/crates.io-index"
+dependencies = [
+ "num-integer 0.1.39 (registry+git://mirrors.ustc.edu.cn/crates.io-index)",
+ "num-traits 0.2.6 (registry+git://mirrors.ustc.edu.cn/crates.io-index)",
+ "time 0.1.40 (registry+git://mirrors.ustc.edu.cn/crates.io-index)",
+]
+
+[[package]]
 name = "env_logger"
 version = "0.6.0"
 source = "registry+git://mirrors.ustc.edu.cn/crates.io-index"
@@ -70,6 +80,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "num-integer"
+version = "0.1.39"
+source = "registry+git://mirrors.ustc.edu.cn/crates.io-index"
+dependencies = [
+ "num-traits 0.2.6 (registry+git://mirrors.ustc.edu.cn/crates.io-index)",
+]
+
+[[package]]
+name = "num-traits"
+version = "0.2.6"
+source = "registry+git://mirrors.ustc.edu.cn/crates.io-index"
+
+[[package]]
 name = "quick-error"
 version = "1.2.2"
 source = "registry+git://mirrors.ustc.edu.cn/crates.io-index"
@@ -111,6 +134,7 @@ dependencies = [
 name = "simplewebserver"
 version = "0.2.0"
 dependencies = [
+ "chrono 0.4.6 (registry+git://mirrors.ustc.edu.cn/crates.io-index)",
  "env_logger 0.6.0 (registry+git://mirrors.ustc.edu.cn/crates.io-index)",
  "log 0.4.6 (registry+git://mirrors.ustc.edu.cn/crates.io-index)",
 ]
@@ -139,6 +163,16 @@ version = "0.3.6"
 source = "registry+git://mirrors.ustc.edu.cn/crates.io-index"
 dependencies = [
  "lazy_static 1.2.0 (registry+git://mirrors.ustc.edu.cn/crates.io-index)",
+]
+
+[[package]]
+name = "time"
+version = "0.1.40"
+source = "registry+git://mirrors.ustc.edu.cn/crates.io-index"
+dependencies = [
+ "libc 0.2.44 (registry+git://mirrors.ustc.edu.cn/crates.io-index)",
+ "redox_syscall 0.1.42 (registry+git://mirrors.ustc.edu.cn/crates.io-index)",
+ "winapi 0.3.6 (registry+git://mirrors.ustc.edu.cn/crates.io-index)",
 ]
 
 [[package]]
@@ -196,12 +230,15 @@ dependencies = [
 "checksum aho-corasick 0.6.9 (registry+git://mirrors.ustc.edu.cn/crates.io-index)" = "1e9a933f4e58658d7b12defcf96dc5c720f20832deebe3e0a19efd3b6aaeeb9e"
 "checksum atty 0.2.11 (registry+git://mirrors.ustc.edu.cn/crates.io-index)" = "9a7d5b8723950951411ee34d271d99dddcc2035a16ab25310ea2c8cfd4369652"
 "checksum cfg-if 0.1.6 (registry+git://mirrors.ustc.edu.cn/crates.io-index)" = "082bb9b28e00d3c9d39cc03e64ce4cea0f1bb9b3fde493f0cbc008472d22bdf4"
+"checksum chrono 0.4.6 (registry+git://mirrors.ustc.edu.cn/crates.io-index)" = "45912881121cb26fad7c38c17ba7daa18764771836b34fab7d3fbd93ed633878"
 "checksum env_logger 0.6.0 (registry+git://mirrors.ustc.edu.cn/crates.io-index)" = "afb070faf94c85d17d50ca44f6ad076bce18ae92f0037d350947240a36e9d42e"
 "checksum humantime 1.1.1 (registry+git://mirrors.ustc.edu.cn/crates.io-index)" = "0484fda3e7007f2a4a0d9c3a703ca38c71c54c55602ce4660c419fd32e188c9e"
 "checksum lazy_static 1.2.0 (registry+git://mirrors.ustc.edu.cn/crates.io-index)" = "a374c89b9db55895453a74c1e38861d9deec0b01b405a82516e9d5de4820dea1"
 "checksum libc 0.2.44 (registry+git://mirrors.ustc.edu.cn/crates.io-index)" = "10923947f84a519a45c8fefb7dd1b3e8c08747993381adee176d7a82b4195311"
 "checksum log 0.4.6 (registry+git://mirrors.ustc.edu.cn/crates.io-index)" = "c84ec4b527950aa83a329754b01dbe3f58361d1c5efacd1f6d68c494d08a17c6"
 "checksum memchr 2.1.1 (registry+git://mirrors.ustc.edu.cn/crates.io-index)" = "0a3eb002f0535929f1199681417029ebea04aadc0c7a4224b46be99c7f5d6a16"
+"checksum num-integer 0.1.39 (registry+git://mirrors.ustc.edu.cn/crates.io-index)" = "e83d528d2677f0518c570baf2b7abdcf0cd2d248860b68507bdcb3e91d4c0cea"
+"checksum num-traits 0.2.6 (registry+git://mirrors.ustc.edu.cn/crates.io-index)" = "0b3a5d7cc97d6d30d8b9bc8fa19bf45349ffe46241e8816f50f62f6d6aaabee1"
 "checksum quick-error 1.2.2 (registry+git://mirrors.ustc.edu.cn/crates.io-index)" = "9274b940887ce9addde99c4eee6b5c44cc494b182b97e73dc8ffdcb3397fd3f0"
 "checksum redox_syscall 0.1.42 (registry+git://mirrors.ustc.edu.cn/crates.io-index)" = "cf8fb82a4d1c9b28f1c26c574a5b541f5ffb4315f6c9a791fa47b6a04438fe93"
 "checksum redox_termios 0.1.1 (registry+git://mirrors.ustc.edu.cn/crates.io-index)" = "7e891cfe48e9100a70a3b6eb652fef28920c117d366339687bd5576160db0f76"
@@ -210,6 +247,7 @@ dependencies = [
 "checksum termcolor 1.0.4 (registry+git://mirrors.ustc.edu.cn/crates.io-index)" = "4096add70612622289f2fdcdbd5086dc81c1e2675e6ae58d6c4f62a16c6d7f2f"
 "checksum termion 1.5.1 (registry+git://mirrors.ustc.edu.cn/crates.io-index)" = "689a3bdfaab439fd92bc87df5c4c78417d3cbe537487274e9b0b2dce76e92096"
 "checksum thread_local 0.3.6 (registry+git://mirrors.ustc.edu.cn/crates.io-index)" = "c6b53e329000edc2b34dbe8545fd20e55a333362d0a321909685a19bd28c3f1b"
+"checksum time 0.1.40 (registry+git://mirrors.ustc.edu.cn/crates.io-index)" = "d825be0eb33fda1a7e68012d51e9c7f451dc1a69391e7fdc197060bb8c56667b"
 "checksum ucd-util 0.1.3 (registry+git://mirrors.ustc.edu.cn/crates.io-index)" = "535c204ee4d8434478593480b8f86ab45ec9aae0e83c568ca81abf0fd0e88f86"
 "checksum utf8-ranges 1.0.2 (registry+git://mirrors.ustc.edu.cn/crates.io-index)" = "796f7e48bef87609f7ade7e06495a87d5cd06c7866e6a5cbfceffc558a243737"
 "checksum version_check 0.1.5 (registry+git://mirrors.ustc.edu.cn/crates.io-index)" = "914b1a6776c4c929a602fafd8bc742e06365d4bcbe48c30f9cca5824f70dc9dd"

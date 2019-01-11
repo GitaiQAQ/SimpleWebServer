@@ -20,6 +20,7 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #![feature(bufreader_buffer)]
+extern crate chrono;
 extern crate core;
 extern crate env_logger;
 #[macro_use]
